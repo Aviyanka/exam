@@ -1,10 +1,12 @@
 <template>
-  <v-app-bar flat>
+
+  <v-app-bar :elevation="2" color=""
+        density="compact">
     <v-app-bar-title>
       <!-- <v-icon icon="mdi-circle-slice-6" /> -->
       <div class="d-flex justfy-content-between">
         <v-btn
-          v-if="!useAppStore().isAuthenticated"
+          v-if="route.path !== '/' && !useAppStore().isAuthenticated"
           class="ma-2"
           variant="text"
           @click="$router.back()"
@@ -31,7 +33,8 @@
 <script setup>
   import { useAppStore } from "@/store/app";
   import { onMounted } from "vue";
-  import { useRouter } from "vue-router";
+  import { useRoute, useRouter } from "vue-router";
+  const route = useRoute()
   const router = useRouter();
   //
   onMounted(() => {
