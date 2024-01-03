@@ -110,8 +110,9 @@
       } catch (err) {
         // console.log(err.response.data.detail);
         btnLoader.value = false;
+        console.log(err, 'ERROR')
         colorToast.value = 'error'
-        msg.value = err.response.data.detail
+        msg.value = err.response?.data?.detail
         isToast.value = true
       }
     }

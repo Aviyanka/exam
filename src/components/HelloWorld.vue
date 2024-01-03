@@ -18,11 +18,7 @@
             variant="tonal"
             @click="router.push('/login')"
           >
-            <v-icon
-              icon="mdi-speedometer"
-              size="large"
-              start
-            />
+            <v-icon icon="mdi-speedometer" size="large" start />
 
             Sign-In
           </v-btn>
@@ -37,11 +33,7 @@
             variant="flat"
             @click="router.push('/sign-up/vendor')"
           >
-            <v-icon
-              icon="mdi-view-dashboard"
-              size="large"
-              start
-            />
+            <v-icon icon="mdi-view-dashboard" size="large" start />
 
             Vendor Registration
           </v-btn>
@@ -56,11 +48,7 @@
             variant="tonal"
             @click="router.push('/sign-up/user')"
           >
-            <v-icon
-              icon="mdi-view-dashboard"
-              size="large"
-              start
-            />
+            <v-icon icon="mdi-view-dashboard" size="large" start />
 
             User Registration
           </v-btn>
@@ -73,5 +61,5 @@
 <script setup>
 import { useRouter } from "vue-router";
 
-  const router = useRouter()
+ const router = useRouter()
 </script>

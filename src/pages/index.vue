@@ -4,5 +4,10 @@
 </template>
 
 <script setup>
-import Home from '@/components/HelloWorld.vue'
+  import { useAppStore } from "@/store/app";
+  import { onMounted } from "vue";
+  import Home from "@/components/HelloWorld.vue";
+  onMounted(() => {
+    useAppStore().checkAuthentication();
+  });
 </script>

@@ -7,5 +7,9 @@
 </template>
 
 <script setup>
-  //
+import { useAppStore } from "@/store/app";
+import { onMounted } from "vue";
+  onMounted(()=>{
+    useAppStore().checkAuthentication();
+  })
 </script>
