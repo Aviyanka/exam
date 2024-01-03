@@ -11,7 +11,7 @@
           <div>
             <h1 class="text-h3">Types Of Vendor</h1>
             <!-- <v-btn @click="addModal" class="mt-5">Add Vendor Type</v-btn> -->
-          </div>
+          </div> 
 
           <v-row class="mt-10">
             <v-col
