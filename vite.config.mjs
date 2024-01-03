@@ -35,6 +35,9 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    base: '/exam/', // Adjust the path according to your project structure
+  },
   define: { 'process.env': {} },
   resolve: {
     alias: {
