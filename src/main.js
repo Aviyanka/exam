@@ -2,6 +2,7 @@
 import App from './App.vue'
 import { createApp } from 'vue'
 import { registerPlugins } from '@/plugins'
+import './config/axios-interceptor';
 const app = createApp(App)
 registerPlugins(app)
 

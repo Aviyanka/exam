@@ -4,19 +4,9 @@
     <v-container class="fill-height">
       <Toast :snackbar="true" text="asd" />
       <v-responsive class="align-center text-center fill-height">
-        <h2 class="text-h2">SignUp</h2>
+        <h2 class="text-h2">Sign In</h2>
         <v-card variant="tonal" class="pa-4 my-10">
           <!-- <form> -->
-          <v-text-field
-            v-model="state.full_name"
-            :error-messages="v$.full_name.$errors.map((e) => e.$message)"
-            :counter="10"
-            label="Name"
-            required
-            @input="v$.full_name.$touch"
-            @blur="v$.full_name.$touch"
-          ></v-text-field>
-
           <v-text-field
             v-model="state.email"
             :error-messages="v$.email.$errors.map((e) => e.$message)"
@@ -37,31 +27,13 @@
             counter
             @click:append="show1 = !show1"
           ></v-text-field>
-          <v-text-field
-            v-model="state.phone_number"
-            :error-messages="v$.phone_number.$errors.map((e) => e.$message)"
-            label="Phone"
-            required
-            @input="v$.phone_number.$touch"
-            @blur="v$.phone_number.$touch"
-          ></v-text-field>
-
-          <v-text-field
-            disabled
-            v-model="state.role"
-            :error-messages="v$.role.$errors.map((e) => e.$message)"
-            label="Role"
-            required
-            @input="v$.role.$touch"
-            @blur="v$.role.$touch"
-          ></v-text-field>
           <v-btn
             color="success"
             :loading="btnLoader"
             class="me-4"
             @click="save"
           >
-            submit
+            Login
           </v-btn>
           <v-btn @click="clear" color="primary" variant="tonal"> clear </v-btn>
           <!-- </form> -->
@@ -84,33 +56,25 @@
   import { useVuelidate } from "@vuelidate/core";
   import { email, required } from "@vuelidate/validators";
   import signUpService from "@/services/authenticationService";
-  import { useRoute, useRouter } from "vue-router";
+  import { useRouter } from "vue-router";
   const show1 = ref(false);
   const isToast = ref(false);
   const btnLoader = ref(false);
   const msg = ref('')
   const colorToast = ref('')
   const router = useRouter();
-  const route = useRoute()
-
   const initialState = {
-    full_name: "",
     email: "",
-    phone_number: "",
     password: "",
-    role: route.params.type,
   };
-  initialState.role = route.params.type
+
   const state = reactive({
     ...initialState,
   });
 
   const rules = {
-    full_name: { required },
     email: { required, email },
     password: { required },
-    phone_number: { required },
-    role: {},
   };
 
   const v$ = useVuelidate(rules, state);
@@ -129,15 +93,18 @@
     } else {
       btnLoader.value = true;
       try {
-        let res = await signUpService.registration(state);
-        if (res) {
-          console.log(res);
+        let res = await signUpService.getLogin(state);
+        if (res.status == 200) {
+          let token = res.data.access_token
+          let refresh_token = res.data.refresh_token
+          localStorage.setItem('token',token)
+          localStorage.setItem('refresh_token',refresh_token)
           btnLoader.value = false;
           colorToast.value = 'success'
-          msg.value = 'Registration Done'
+          msg.value = 'Login Done'
           isToast.value = true
           setTimeout(()=>{
-            router.push('/')
+            router.push('/home')
           },1500)
         }
       } catch (err) {

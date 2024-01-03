@@ -15,7 +15,8 @@
             min-width="228"
             rel="noopener noreferrer"
             size="x-large"
-            variant="flat"
+            variant="tonal"
+            @click="router.push('/login')"
           >
             <v-icon
               icon="mdi-speedometer"
@@ -32,9 +33,9 @@
             min-width="164"
             rel="noopener noreferrer"
             target="_blank"
-            size="x-large"
+            size="large"
             variant="flat"
-            @click="router.push('/sign-up')"
+            @click="router.push('/sign-up/vendor')"
           >
             <v-icon
               icon="mdi-view-dashboard"
@@ -42,7 +43,26 @@
               start
             />
 
-            Sign-Up
+            Vendor Registration
+          </v-btn>
+        </v-col>
+        <v-col cols="auto">
+          <v-btn
+            color="primary"
+            min-width="164"
+            rel="noopener noreferrer"
+            target="_blank"
+            size="large"
+            variant="tonal"
+            @click="router.push('/sign-up/user')"
+          >
+            <v-icon
+              icon="mdi-view-dashboard"
+              size="large"
+              start
+            />
+
+            User Registration
           </v-btn>
         </v-col>
       </v-row>
