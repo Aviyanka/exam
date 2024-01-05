@@ -23,6 +23,9 @@
                   placeholder="Enter Email"
                   aria-label="default input example"
                 />
+                <div class="input-errors" v-for="error of v$.email.$errors" :key="error.$uid">
+                        <small class="p-error">{{ error.$validator == 'required' ? 'Email is required' : '' }}</small>
+                    </div>
               </div>
               <div className="">
                 <input
@@ -32,6 +35,9 @@
                   placeholder="Enter Password"
                   aria-label="default input example"
                 />
+                <div class="input-errors" v-for="error of v$.password.$errors" :key="error.$uid">
+                        <small class="p-error">{{ error.$validator == 'required' ? 'Password is required' : '' }}</small>
+                    </div>
               </div>
               <div className="d-flex row py-4 text-center check-box">
                 <div className="form-check col-6 text-start">
