@@ -3,7 +3,14 @@
   <section className="container-box">
     <div className="container">
       <div className="row">
-        <div style="background: url('https://amentotech.com/htmls/doclist/images/slider/banner-img.png');background-size:cover;background-position:left" className="col-12 col-lg-6 d-lg-flex d-none align-center">
+        <div
+          style="
+            background: url('https://amentotech.com/htmls/doclist/images/slider/banner-img.png');
+            background-size: cover;
+            background-position: left;
+          "
+          className="col-12 col-lg-6 d-lg-flex d-none align-center"
+        >
           <img
             src="https://amentotech.com/htmls/doclist/images/slider/img-01.png"
             alt=""
@@ -23,9 +30,15 @@
                   placeholder="Enter Email"
                   aria-label="default input example"
                 />
-                <div class="input-errors" v-for="error of v$.email.$errors" :key="error.$uid">
-                        <small class="p-error">{{ error.$validator == 'required' ? 'Email is required' : '' }}</small>
-                    </div>
+                <div
+                  class="input-errors"
+                  v-for="error of v$.email.$errors"
+                  :key="error.$uid"
+                >
+                  <small class="p-error">{{
+                    error.$validator == "required" ? "Email is required" : ""
+                  }}</small>
+                </div>
               </div>
               <div className="">
                 <input
@@ -35,9 +48,15 @@
                   placeholder="Enter Password"
                   aria-label="default input example"
                 />
-                <div class="input-errors" v-for="error of v$.password.$errors" :key="error.$uid">
-                        <small class="p-error">{{ error.$validator == 'required' ? 'Password is required' : '' }}</small>
-                    </div>
+                <div
+                  class="input-errors"
+                  v-for="error of v$.password.$errors"
+                  :key="error.$uid"
+                >
+                  <small class="p-error">{{
+                    error.$validator == "required" ? "Password is required" : ""
+                  }}</small>
+                </div>
               </div>
               <div className="d-flex row py-4 text-center check-box">
                 <div className="form-check col-6 text-start">
@@ -58,12 +77,14 @@
                       class="btn btn-outline-primary my-2"
                       type="button"
                     >
-                      <div v-if="btnLoader" class="spinner-border" role="status">
+                      <div
+                        v-if="btnLoader"
+                        class="spinner-border"
+                        role="status"
+                      >
                         <span class="sr-only"></span>
                       </div>
-                      <span v-else>
-                        Login
-                      </span>
+                      <span v-else> Login </span>
                     </button>
                   </div>
                 </div>
@@ -130,7 +151,7 @@
         }
       } catch (err) {
         // console.log(err.response.data.detail);
-        alert(err.response?.data?.detail)
+        alert(err.response?.data?.detail);
         btnLoader.value = false;
       }
     }
