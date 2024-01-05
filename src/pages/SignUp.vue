@@ -81,6 +81,26 @@
               </div>
               <div className="form-padding py-4">
                 <input
+                  v-model="state.phone_number"
+                  className="form-control"
+                  type="text"
+                  placeholder="Enter Phone Number"
+                  aria-label="default input example"
+                />
+                <div
+                  class="input-errors"
+                  v-for="error of v$.phone_number.$errors"
+                  :key="error.$uid"
+                >
+                  <small class="p-error">{{
+                    error.$validator == "required"
+                      ? "Phone Number is required"
+                      : ""
+                  }}</small>
+                </div>
+              </div>
+              <div className="form-padding py-4">
+                <input
                   disabled
                   v-model="state.role"
                   className="form-control"
@@ -120,14 +140,7 @@
                       class="btn btn-outline-primary my-2"
                       type="button"
                     >
-                      <div
-                        v-if="btnLoader"
-                        class="spinner-border"
-                        role="status"
-                      >
-                        <span class="sr-only"></span>
-                      </div>
-                      <span v-else> Clear </span>
+                      clear
                     </button>
                   </div>
                 </div>
@@ -142,11 +155,12 @@
 <script setup>
   import { reactive, ref } from "vue";
   import { useVuelidate } from "@vuelidate/core";
+  import { toast } from "vue3-toastify";
+  import "vue3-toastify/dist/index.css";
   import { email, required } from "@vuelidate/validators";
   import signUpService from "@/services/authenticationService";
   import { useRoute, useRouter } from "vue-router";
   const show1 = ref(false);
-  const isToast = ref(false);
   const btnLoader = ref(false);
   const msg = ref("");
   const colorToast = ref("");
@@ -164,7 +178,7 @@
   const state = reactive({
     ...initialState,
   });
-
+  // ToastOptions
   const rules = {
     full_name: { required },
     email: { required, email },
@@ -195,7 +209,12 @@
           btnLoader.value = false;
           colorToast.value = "success";
           msg.value = "Registration Done";
-          isToast.value = true;
+          toast("SignUp SuccessFull !", {
+            autoClose: 1000,
+            style: {
+              opacity: "1",
+            },
+          });
           setTimeout(() => {
             router.push("/");
           }, 1500);
@@ -205,7 +224,12 @@
         btnLoader.value = false;
         colorToast.value = "error";
         msg.value = err.response.data.detail;
-        isToast.value = true;
+        toast(err.response.data.detail, {
+          autoClose: 1000,
+          style: {
+            opacity: "1",
+          },
+        });
       }
     }
   };
