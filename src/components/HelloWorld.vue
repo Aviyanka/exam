@@ -46,7 +46,7 @@
             target="_blank"
             size="large"
             variant="tonal"
-            @click="router.push('/sign-up/user')"
+            @click="router.push('/sign-up/host')"
           >
             <v-icon icon="mdi-view-dashboard" size="large" start />
 
