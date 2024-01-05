@@ -86,6 +86,13 @@
                       </div>
                       <span v-else> Login </span>
                     </button>
+                    <button
+                      @click="clear"
+                      class="btn btn-outline-primary my-2"
+                      type="button"
+                    >
+                      clear
+                    </button>
                   </div>
                 </div>
               </div>
@@ -97,7 +104,8 @@
   </section>
 </template>
 <script setup>
-  import { reactive, ref } from "vue";
+  import { onMounted, reactive, ref } from "vue";
+  import { toast } from "vue3-toastify";
   import { useVuelidate } from "@vuelidate/core";
   import { email, required } from "@vuelidate/validators";
   import signUpService from "@/services/authenticationService";
@@ -131,6 +139,14 @@
       state[key] = value;
     }
   }
+  onMounted(()=>{
+    toast('Please Sign In', {
+          autoClose: 1000,
+          style: {
+            opacity: "1",
+          },
+        });
+  })
   const save = async () => {
     const isFormCorrect = await v$.value.$validate();
     if (!isFormCorrect) {
@@ -147,12 +163,16 @@
           btnLoader.value = false;
           colorToast.value = "success";
           msg.value = "Login Done";
-          isToast.value = true;
+          router.push('/home')
         }
       } catch (err) {
-        // console.log(err.response.data.detail);
-        alert(err.response?.data?.detail);
         btnLoader.value = false;
+        toast(err.response?.data?.detail, {
+          autoClose: 1000,
+          style: {
+            opacity: "1",
+          },
+        });
       }
     }
   };
