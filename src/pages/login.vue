@@ -1,55 +1,73 @@
 // eslint-disable-next-line vue/multi-word-component-names
 <template>
-  <div>
-    <v-container class="fill-height">
-      <Toast :snackbar="true" text="asd" />
-      <v-responsive class="align-center text-center fill-height">
-        <h2 class="text-h2">Sign In</h2>
-        <v-card variant="tonal" class="pa-4 my-10">
-          <!-- <form> -->
-          <v-text-field
-            v-model="state.email"
-            :error-messages="v$.email.$errors.map((e) => e.$message)"
-            label="E-mail"
-            required
-            @input="v$.email.$touch"
-            @blur="v$.email.$touch"
-          ></v-text-field>
-          <v-text-field
-            v-model="state.password"
-            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required]"
-            :error-messages="v$.password.$errors.map((e) => e.$message)"
-            :type="show1 ? 'text' : 'password'"
-            name="input-10-1"
-            label="Password"
-            hint="At least 8 characters"
-            counter
-            @click:append="show1 = !show1"
-          ></v-text-field>
-          <v-btn
-            color="success"
-            :loading="btnLoader"
-            class="me-4"
-            @click="save"
-          >
-            Login
-          </v-btn>
-          <v-btn @click="clear" color="primary" variant="tonal"> clear </v-btn>
-          <!-- </form> -->
-        </v-card>
-      </v-responsive>
-    </v-container>
-    <v-snackbar
-      :timeout="1500"
-      :color="colorToast"
-      elevation="24"
-      v-model="isToast"
-      :top="true"
-    >
-      {{ msg }}
-    </v-snackbar>
-  </div>
+  <section className="container-box">
+    <div className="container">
+      <div className="row">
+        <div style="background: url('https://amentotech.com/htmls/doclist/images/slider/banner-img.png');background-size:cover;background-position:left" className="col-12 col-lg-6 d-lg-flex d-none align-center">
+          <img
+            src="https://amentotech.com/htmls/doclist/images/slider/img-01.png"
+            alt=""
+          />
+        </div>
+        <div className="col-12 col-lg-6">
+          <div className="background-div">
+            <div className="main-form">
+              <div className="logo">
+                <img width="100" src="@/assets/logoCompany.png" />
+              </div>
+              <div className="form-padding py-4">
+                <input
+                  v-model="state.email"
+                  className="form-control"
+                  type="text"
+                  placeholder="Enter Email"
+                  aria-label="default input example"
+                />
+              </div>
+              <div className="">
+                <input
+                  v-model="state.password"
+                  className="form-control"
+                  type="password"
+                  placeholder="Enter Password"
+                  aria-label="default input example"
+                />
+              </div>
+              <div className="d-flex row py-4 text-center check-box">
+                <div className="form-check col-6 text-start">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  <label className="form-check-label " for="flexCheckDefault">
+                    Remember Me
+                  </label>
+                </div>
+                <div className="py-4">
+                  <div className="d-grid gap-2">
+                    <button
+                      @click="save"
+                      class="btn btn-outline-primary my-2"
+                      type="button"
+                    >
+                      <div v-if="btnLoader" class="spinner-border" role="status">
+                        <span class="sr-only"></span>
+                      </div>
+                      <span v-else>
+                        Login
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 <script setup>
   import { reactive, ref } from "vue";
@@ -60,8 +78,8 @@
   const show1 = ref(false);
   const isToast = ref(false);
   const btnLoader = ref(false);
-  const msg = ref('')
-  const colorToast = ref('')
+  const msg = ref("");
+  const colorToast = ref("");
   const router = useRouter();
   const initialState = {
     email: "",
@@ -95,25 +113,19 @@
       try {
         let res = await signUpService.getLogin(state);
         if (res.status == 200) {
-          let token = res.data.access_token
-          let refresh_token = res.data.refresh_token
-          localStorage.setItem('token',token)
-          localStorage.setItem('refresh_token',refresh_token)
+          let token = res.data.access_token;
+          let refresh_token = res.data.refresh_token;
+          localStorage.setItem("token", token);
+          localStorage.setItem("refresh_token", refresh_token);
           btnLoader.value = false;
-          colorToast.value = 'success'
-          msg.value = 'Login Done'
-          isToast.value = true
-          setTimeout(()=>{
-            router.push('/home')
-          },1500)
+          colorToast.value = "success";
+          msg.value = "Login Done";
+          isToast.value = true;
         }
       } catch (err) {
         // console.log(err.response.data.detail);
+        alert(err.response?.data?.detail)
         btnLoader.value = false;
-        console.log(err, 'ERROR')
-        colorToast.value = 'error'
-        msg.value = err.response?.data?.detail
-        isToast.value = true
       }
     }
   };

@@ -1,8 +1,9 @@
 <template>
   <v-app>
-    <DefaultBar />
-
-    <DefaultView />
+    <DefaultBar class="header-nav" />
+    <div>
+      <DefaultView />
+    </div>
   </v-app>
 </template>
 

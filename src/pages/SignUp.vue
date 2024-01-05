@@ -6,7 +6,6 @@
       <v-responsive class="align-center text-center fill-height">
         <h2 class="text-h2">SignUp</h2>
         <v-card variant="tonal" class="pa-4 my-10">
-          <!-- <form> -->
           <v-text-field
             v-model="state.full_name"
             :error-messages="v$.full_name.$errors.map((e) => e.$message)"
@@ -64,7 +63,6 @@
             submit
           </v-btn>
           <v-btn @click="clear" color="primary" variant="tonal"> clear </v-btn>
-          <!-- </form> -->
         </v-card>
       </v-responsive>
     </v-container>
